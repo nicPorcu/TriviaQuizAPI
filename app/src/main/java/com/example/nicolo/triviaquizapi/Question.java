@@ -1,65 +1,27 @@
 package com.example.nicolo.triviaquizapi;
 
-import java.util.List;
-
 /**
- * Created by per6 on 1/17/18.
+ * Created by per6 on 1/23/18.
  */
 
 public class Question {
-    private String category;
-    private String type;
-    private String difficulty;
-    private String question;
-    private String correctAnswer;
-    private List<String> incorrectAnswers;
+    int responseCode;
+    Results results;
 
 
-    public String getCategory() {
-        return category;
+    public int getResponseCode() {
+        return responseCode;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
     }
 
-    public String getType() {
-        return type;
+    public Results getResults() {
+        return results;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
-
-    public List<String> getIncorrectAnswers() {
-        return incorrectAnswers;
-    }
-
-    public void setIncorrectAnswers(List<String> incorrectAnswers) {
-        this.incorrectAnswers = incorrectAnswers;
+    public void setResults(Results results) {
+        this.results = results;
     }
 }
