@@ -21,20 +21,23 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private Question questions;
+    private Question questionObject;
+    private List<Results> questionList;
     private WordAdapter adapter;
     public static final String TAG= "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView=findViewById(R.id.recycle);
         layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter=new WordAdapter(questions,this);
+        adapter=new WordAdapter(questionList,this);
         recyclerView.setAdapter(adapter);
+        questionList=new ArrayList<>();
 
 
 
@@ -49,7 +52,16 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<Question>() {
             @Override
             public void onResponse(Call<Question> call, Response<Question> response) {
-                questions=response.body();
+                if(response.body()==null)
+                {
+                    Log.d(TAG, "onResponse: is null");
+                }
+                Log.d(TAG, "onResponse: "+response.body().getResponseCode());
+                questionObject =response.body();
+                Log.d(TAG, "onResponse: "+ questionObject.getResults().get(0).getQuestion());
+
+                questionList.addAll(questionObject.getResults());
+
                 adapter.notifyDataSetChanged();
 
             }
