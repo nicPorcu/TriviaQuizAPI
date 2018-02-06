@@ -15,7 +15,7 @@ public interface TriviaAPI {
     String baseUrl="https://opentdb.com/";
     //api.php?amount=10
     @GET("api.php")
-    Call<Question> getQuestion(@Query("amount") int num);
+    Call<Question> getQuestion(@Query("amount") int num, @Query("type") String s);
 
 
 }

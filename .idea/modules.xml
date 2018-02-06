@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/TriviaQuizAPI.iml" filepath="$PROJECT_DIR$/TriviaQuizAPI.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/TriviaQuizAPI.iml" filepath="$PROJECT_DIR$/.idea/TriviaQuizAPI.iml" />
       <module fileurl="file://C:\Users\Nicolo\StudioProjects\TriviaQuizAPI\TriviaQuizAPI.iml" filepath="C:\Users\Nicolo\StudioProjects\TriviaQuizAPI\TriviaQuizAPI.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />

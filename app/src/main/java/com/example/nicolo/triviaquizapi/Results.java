@@ -11,8 +11,8 @@ public class Results {
     private String type;
     private String difficulty;
     private String question;
-    private String correctAnswer;
-    private List<String> incorrectAnswers;
+    private String correct_answer;
+    private List<String> incorrect_answers;
 
 
 
@@ -49,19 +49,19 @@ public class Results {
     }
 
     public String getCorrectAnswer() {
-        return correctAnswer;
+        return correct_answer;
     }
 
     public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
+        this.correct_answer = correctAnswer;
     }
 
     public List<String> getIncorrectAnswers() {
-        return incorrectAnswers;
+        return incorrect_answers;
     }
 
-    public void setIncorrectAnswers(List<String> incorrectAnswers) {
-        this.incorrectAnswers = incorrectAnswers;
+    public void setIncorrectAnswers(List<String> incorrect_answers) {
+        this.incorrect_answers = incorrect_answers;
     }
 
     @Override
@@ -71,8 +71,8 @@ public class Results {
                 ", type='" + type + '\'' +
                 ", difficulty='" + difficulty + '\'' +
                 ", question='" + question + '\'' +
-                ", correctAnswer='" + correctAnswer + '\'' +
-                ", incorrectAnswers=" + incorrectAnswers +
+                ", correct_answer='" + correct_answer + '\'' +
+                ", incorrect_answers=" + incorrect_answers +
                 '}';
     }
 

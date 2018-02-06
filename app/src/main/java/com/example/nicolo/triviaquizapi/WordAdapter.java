@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -16,13 +18,15 @@ import static com.example.nicolo.triviaquizapi.MainActivity.TAG;
  * Created by per6 on 1/23/18.
  */
 
-class WordAdapter extends RecyclerView.Adapter<WordAdapter.MyViewHolder>{
+public class WordAdapter extends RecyclerView.Adapter<WordAdapter.MyViewHolder>{
     private List<Results> questionlist;
     private Context context;
+    private RecyclerViewClickListener recyclerViewClickListener;
 
-    public WordAdapter(List<Results> questionList, Context context) {
+    public WordAdapter(List<Results> questionList, Context context, RecyclerViewClickListener listener) {
         this.questionlist = questionList;
         this.context = context;
+        recyclerViewClickListener=listener;
     }
 
 
@@ -31,38 +35,94 @@ class WordAdapter extends RecyclerView.Adapter<WordAdapter.MyViewHolder>{
         View itemView= LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.word_item,parent,false);
 
-        return new MyViewHolder(itemView);
+        return new MyViewHolder(itemView, recyclerViewClickListener);
     }
 
     @Override
     public void onBindViewHolder(WordAdapter.MyViewHolder holder, int position) {
-        List<Results> questions= this.questionlist;
-        if(questions==null){
-            Log.d(TAG, "onBindViewHolder: isNull");
-        }
-        else {
-            holder.questionText.setText(questions.get(position).getQuestion());
-        }
+            String text=questionlist.get(position).getQuestion();
+            text = fixQuestion(text);
+
+
+            holder.questionText.setText(text);
+        Log.d(TAG, "onBindViewHolder: ques"+questionlist.get(position).getCorrectAnswer());
+
+
+
      //   holder.questionText.setText(question.toString());
 //        holder.questionText.setText(question.getResults().get(0).getQuestion());
    //     holder.answerText.setText(question.getResults().get(position).getCorrectAnswer());
 
     }
 
+    private String fixQuestion(String text) {
+        while (text.indexOf("&quot;")>= 0){
+            Log.d(TAG, "fixQuestion: "+text);
+            text= text.substring(0,text.indexOf("&quot;"))+"\""+ text.substring(text.indexOf("quot;")+5);
+
+        }
+        if(text.indexOf("&#039;")>0){
+            Log.d(TAG, "fixQuestion: "+text);
+            text= text.substring(0,text.indexOf("&#039;"))+"'"+ text.substring(text.indexOf("&#039;")+6);
+        }
+        return text;
+    }
+
     @Override
     public int getItemCount() {
-        return 10;
+        return questionlist.size();
     }
 
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
-        private TextView questionText,answerText;
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private TextView questionText;
+        public Button trueButton, falseButton;
+        private RecyclerViewClickListener recyclerViewClickListener;
 
-        public MyViewHolder(View itemView) {
+
+        public MyViewHolder(View itemView, RecyclerViewClickListener listener) {
+
             super(itemView);
             questionText= itemView.findViewById(R.id.questionTextView);
-            answerText= itemView.findViewById(R.id.answerTextView);
+            trueButton=itemView.findViewById(R.id.true_button);
+            falseButton=itemView.findViewById(R.id.false_button);
+            trueButton.setOnClickListener(this);
+            falseButton.setOnClickListener(this);
+            recyclerViewClickListener = listener;
+
+        }
+        @Override
+        public void onClick(View view) {
+            recyclerViewClickListener.onClick(view, getAdapterPosition());
         }
     }
+
+    public List<Results> getQuestionlist() {
+        return questionlist;
+    }
+
+
+//    public void onClick(View view)
+//    {
+//
+//        switch (view.getId()){
+//            case R.id.true_button:
+//                if(questionlist.get(0).getCorrectAnswer().equals("true")) {
+//                    Toast.makeText(context, "Correct", Toast.LENGTH_SHORT).show();
+//                }
+//                else {
+//                    Toast.makeText(context, "Incorrect", Toast.LENGTH_SHORT).show();
+//
+//                }
+//
+//                break;
+//            case R.id.false_button:
+//                Toast.makeText(context, "False", Toast.LENGTH_SHORT).show();
+//
+//
+//                break;
+//
+//        }
+//    }
 }
